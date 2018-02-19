@@ -14,15 +14,15 @@ h1 {
 
 h2 {
     font-family: 'Faster One', cursive;
-    font-size: 34px;
+    font-size: 27px;
     text-align: center;
 }
 
 footer {
     font-family: 'Faster One', cursive;
-    padding: 10px 0;
+    padding: 3px 0;
     clear: both;
-    font-size: 34px;
+    font-size: 27px;
     color: #fff;
     color: #ccc;
     text-align: center;
@@ -32,7 +32,8 @@ footer {
 
 .jumbotron {
     color: black;
-    padding-top: 0px
+    padding-top: 0px;
+    margin-bottom: 10px;
 }
 
 // Extra small devices (portrait phones, less than 576px)
