@@ -33,6 +33,7 @@ footer {
 .jumbotron {
     color: black;
     padding-top: 0px;
+    padding-bottom: 10px;
     margin-bottom: 10px;
 }
 
