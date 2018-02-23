@@ -6,20 +6,25 @@ $(document).ready(function () {
     var winCount = 0;
     var lossCount = 0;
     var yourNumber = 0;
+    var hasScored = false;
 
     //generate random number for computer's number
     function compNumberFromRange(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
-    $("#compNumber").text(compNumber);
+    
     //console.log(compNumber);
 
     //give wheels random values
-    $(".wheel").each(function (i, wheel) {
-        var wheelValue = Math.floor(Math.random() * 12) + 1;
-        $(wheel).attr("data-wheelValue", wheelValue);
-        console.log(wheel, i);
-    });
+    function randomWheelValues() {
+        $("#compNumber").text(compNumber);
+        $(".wheel").each(function (i, wheel) {
+            var wheelValue = Math.floor(Math.random() * 12) + 1;
+            $(wheel).attr("data-wheelValue", wheelValue);
+            console.log(wheel, i);
+        })
+    }
+    randomWheelValues();
 
     //click event to add wheel values to yourNumber
     $(".wheel").on("click", function () {
@@ -27,30 +32,42 @@ $(document).ready(function () {
         value = parseInt(value);
         yourNumber += value;
         $("#yourNumber").text(yourNumber);
+        score();
 
-    })
+    });
 
-    function gameOver(event) {
+    //score count
+    function score() {
         if (yourNumber === compNumber) {
-            $("#wins").text(winCount++)
-            .off("click", ".wheel");
-            gameOver();
+            if (hasScored === false) {
+                initReset();
+            }
+            hasScored = true
+            winCount += 1;
+            $("#wins").text(winCount)
+        } else if (yourNumber > compNumber) {
+            if (hasScored === false) {
+                initReset();
+            }
+            hasScored = true
+            losses += 1;
+            $("#losses").text(lossCount)
         }
-        else {
-            $("#losses").text(lossCount++)
-            .off("click", ".wheel");
-            gameOver();
-        }
+
     }
-    
-    function playAgain(compNumberFromRange, i, wheel) {
+
+    function initReset() {
+        $(".reset-container").removeClass("d-none");
+        $(".reset-button").on("click", function () {
+            reset();
+        })
+    }
+
+    function reset() {
         $("#yourNumber").empty();
-        //create button on gameOver event
-        
+        yourNumber = 0;
+        $("#compNumber").empty();
+        compNumber = compNumberFromRange(minNumber, maxNumber);
+        randomWheelValues();
     }
-
-    //function gameLock(){
-    //
-    //}
-
 });
