@@ -3,8 +3,8 @@ $(document).ready(function () {
     var minNumber = 19;
     var maxNumber = 120;
     var compNumber = compNumberFromRange(minNumber, maxNumber);
-    //var winCount = 0;
-    //var lossCount = 0;
+    var winCount = 0;
+    var lossCount = 0;
     var yourNumber = 0;
 
     //generate random number for computer's number
@@ -14,27 +14,40 @@ $(document).ready(function () {
     $("#compNumber").text(compNumber);
     //console.log(compNumber);
 
+    //give wheels random values
     $(".wheel").each(function (i, wheel) {
         var wheelValue = Math.floor(Math.random() * 12) + 1;
         $(wheel).attr("data-wheelValue", wheelValue);
         console.log(wheel, i);
-    })
-    //.data(wheelValue)
-    //function wheelNum() { 
+    });
 
-    //    ("#wheel1").attr("data-wheelValue", wheelValue);
-    //    console.log(wheelValue);
-    //}
-
+    //click event to add wheel values to yourNumber
     $(".wheel").on("click", function () {
         var value = $(this).attr("data-wheelValue");
         value = parseInt(value);
         yourNumber += value;
         $("#yourNumber").text(yourNumber);
-        
+
     })
+
+    function gameOver(event) {
+        if (yourNumber === compNumber) {
+            $("#wins").text(winCount++)
+            .off("click", ".wheel");
+            gameOver();
+        }
+        else {
+            $("#losses").text(lossCount++)
+            .off("click", ".wheel");
+            gameOver();
+        }
+    }
     
-    //wheel.off click listener
+    function playAgain(compNumberFromRange, i, wheel) {
+        $("#yourNumber").empty();
+        //create button on gameOver event
+        
+    }
 
     //function gameLock(){
     //
