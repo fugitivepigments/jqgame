@@ -12,10 +12,8 @@ $(document).ready(function () {
     function compNumberFromRange(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
-    
-    //console.log(compNumber);
 
-    //give wheels random values
+    //writes comp number to div and gives wheels random values
     function randomWheelValues() {
         $("#compNumber").text(compNumber);
         $(".wheel").each(function (i, wheel) {
@@ -23,18 +21,17 @@ $(document).ready(function () {
             $(wheel).attr("data-wheelValue", wheelValue);
             console.log(wheel, i);
         })
+        //click event to add wheel values to yourNumber
+        $(".wheel").on("click", function () {
+            var value = $(this).attr("data-wheelValue");
+            value = parseInt(value);
+            yourNumber += value;
+            $("#yourNumber").text(yourNumber);
+            score();
+
+        });
     }
     randomWheelValues();
-
-    //click event to add wheel values to yourNumber
-    $(".wheel").on("click", function () {
-        var value = $(this).attr("data-wheelValue");
-        value = parseInt(value);
-        yourNumber += value;
-        $("#yourNumber").text(yourNumber);
-        score();
-
-    });
 
     //score count
     function score() {
@@ -45,13 +42,15 @@ $(document).ready(function () {
             hasScored = true
             winCount += 1;
             $("#wins").text(winCount)
+            $(".wheel").off("click");
         } else if (yourNumber > compNumber) {
             if (hasScored === false) {
                 initReset();
             }
-            hasScored = true
-            losses += 1;
-            $("#losses").text(lossCount)
+            hasScored === true;
+            lossCount += 1;
+            $("#losses").text(lossCount);
+            $(".wheel").off("click");
         }
 
     }
@@ -61,6 +60,7 @@ $(document).ready(function () {
         $(".reset-button").on("click", function () {
             reset();
         })
+
     }
 
     function reset() {
